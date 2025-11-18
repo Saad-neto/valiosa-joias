@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   // Configurações de imagem para Cloudflare
   images: {
     unoptimized: true, // Cloudflare Pages requer isso
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
+      },
+    ],
   },
 
   // Configurações de domínio

@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import { mockProducts } from '@/lib/mockData';
 import { useCart } from '@/contexts/CartContext';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import ProductCard from '@/components/ui/ProductCard';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -39,6 +42,11 @@ export default function ProductDetailPage() {
     : 0;
 
   const handleAddToCart = () => {
+    if (product.variants?.size && !selectedSize) {
+      toast.error('Por favor, selecione um tamanho');
+      return;
+    }
+
     addItem({
       id: product.id,
       name: product.name,
@@ -47,6 +55,8 @@ export default function ProductDetailPage() {
       image: product.images[0],
       variant: selectedSize ? { size: selectedSize } : undefined,
     });
+
+    toast.success(`${quantity}x ${product.name} adicionado ao carrinho!`);
   };
 
   return (
@@ -79,10 +89,13 @@ export default function ProductDetailPage() {
           <div>
             {/* Main Image */}
             <div className="bg-neutral-100 rounded-lg overflow-hidden mb-4 aspect-square">
-              <img
+              <Image
                 src={product.images[selectedImage]}
                 alt={product.name}
+                width={800}
+                height={800}
                 className="w-full h-full object-cover"
+                priority
               />
             </div>
 
@@ -99,9 +112,11 @@ export default function ProductDetailPage() {
                         : 'border-transparent hover:border-neutral-300'
                     }`}
                   >
-                    <img
+                    <Image
                       src={image}
                       alt={`${product.name} - ${index + 1}`}
+                      width={200}
+                      height={200}
                       className="w-full h-full object-cover"
                     />
                   </button>

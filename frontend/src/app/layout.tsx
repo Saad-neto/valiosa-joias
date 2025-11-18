@@ -4,6 +4,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { SiteConfigProvider } from "@/contexts/SiteConfigContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Valiosa Joias - Joias Exclusivas e Sofisticadas",
@@ -30,6 +31,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <Toaster position="top-right" richColors />
           </CartProvider>
         </SiteConfigProvider>
       </body>

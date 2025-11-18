@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
 export default function Footer() {
@@ -14,13 +15,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About */}
           <div>
-            <img
+            <Image
               src={config.logo}
               alt={config.siteName}
+              width={150}
+              height={48}
               className="h-12 w-auto mb-6"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = '/logo-fallback.png';
-              }}
             />
             <p className="text-sm font-light leading-relaxed mb-6">
               {config.siteName} - Joias exclusivas com design sofisticado e qualidade premium.
@@ -108,6 +108,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="seu@email.com"
+                aria-label="Endereço de email para newsletter"
+                autoComplete="email"
+                required
                 className="px-4 py-2.5 rounded-sm border border-neutral-200 focus:outline-none focus:border-gold-400 text-sm font-light bg-white transition-colors"
               />
               <button

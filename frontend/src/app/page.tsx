@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Mock data - será substituído por dados da API
 const mockProducts = [
@@ -90,9 +91,11 @@ export default function HomePage() {
             {config.categories.map((category) => (
               <Link key={category.id} href={`/produtos?category=${category.id}`}>
                 <Card className="text-center group p-0 overflow-hidden border-0 shadow-none hover:shadow-md">
-                  <img
+                  <Image
                     src={category.image}
                     alt={category.name}
+                    width={400}
+                    height={192}
                     className="w-full h-48 object-cover mb-4 group-hover:scale-105 transition-all duration-500"
                   />
                   <h3 className="font-serif text-base font-normal pb-4 tracking-wide">{category.name}</h3>
@@ -117,9 +120,11 @@ export default function HomePage() {
             {mockProducts.map((product) => (
               <Card key={product.id} className="group">
                 <div className="relative">
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.name}
+                    width={400}
+                    height={288}
                     className="w-full h-72 object-cover rounded-sm mb-6 group-hover:scale-105 transition-transform duration-500"
                   />
                   <Badge

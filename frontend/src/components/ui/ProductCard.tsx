@@ -5,6 +5,7 @@ import Card from './Card';
 import Badge from './Badge';
 import Button from './Button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
 import { useState } from 'react';
 
@@ -43,9 +44,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Main product image */}
-          <img
+          <Image
             src={product.images[0]}
             alt={product.name}
+            width={400}
+            height={256}
             className={`w-full h-64 object-cover transition-all duration-700 ease-in-out ${
               isHovered ? 'scale-105 opacity-0' : 'scale-100 opacity-100'
             }`}
@@ -53,9 +56,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Lifestyle/hover image - Only shown if available */}
           {product.hoverImage && (
-            <img
+            <Image
               src={product.hoverImage}
               alt={`${product.name} em uso`}
+              width={400}
+              height={256}
               className={`absolute inset-0 w-full h-64 object-cover transition-all duration-700 ease-in-out ${
                 isHovered ? 'scale-105 opacity-100' : 'scale-100 opacity-0'
               }`}
@@ -78,6 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Wishlist Icon */}
           <button
+            aria-label={`Adicionar ${product.name} aos favoritos`}
             className="absolute top-2 left-2 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={(e) => {
               e.preventDefault();
@@ -85,7 +91,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               // TODO: Add to wishlist
             }}
           >
-            <svg className="w-5 h-5 text-neutral-600 hover:text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-5 h-5 text-neutral-600 hover:text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
           </button>

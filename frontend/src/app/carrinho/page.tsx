@@ -5,6 +5,7 @@ import { useCart } from '@/contexts/CartContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 export default function CarrinhoPage() {
   const { items, removeItem, updateQuantity, total, clearCart } = useCart();
@@ -32,8 +33,9 @@ export default function CarrinhoPage() {
         code: upperCode,
         discount: validCoupons[upperCode],
       });
+      toast.success(`Cupom ${upperCode} aplicado com sucesso! ${validCoupons[upperCode]}% de desconto`);
     } else {
-      alert('Cupom inválido');
+      toast.error('Cupom inválido. Tente: WELCOME10, PRIMEIRA15 ou VIP20');
     }
   };
 

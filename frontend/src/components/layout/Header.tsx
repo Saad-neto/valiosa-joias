@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { useCart } from '@/contexts/CartContext';
 import Button from '../ui/Button';
 
 export default function Header() {
+  const router = useRouter();
   const { config } = useSiteConfig();
   const { itemCount } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,7 +26,7 @@ export default function Header() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      window.location.href = `/produtos?search=${encodeURIComponent(searchQuery)}`;
+      router.push(`/produtos?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -51,13 +54,13 @@ export default function Header() {
         <div className="flex items-center justify-between gap-8">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <img
+            <Image
               src={config.logo}
               alt={config.siteName}
+              width={200}
+              height={56}
               className="h-14 w-auto transition-opacity hover:opacity-80"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = '/logo-fallback.png';
-              }}
+              priority
             />
           </Link>
 
@@ -114,8 +117,10 @@ export default function Header() {
             <button
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-expanded={mobileMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg aria-hidden="true" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>

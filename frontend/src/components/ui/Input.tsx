@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef, useId } from 'react';
+import { cn } from '@/lib/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -20,10 +21,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     return (
-      <div className={`flex flex-col gap-1 ${fullWidth ? 'w-full' : ''}`}>
+      <div className={cn('flex flex-col gap-1', fullWidth && 'w-full')}>
         {label && (
           <label
             htmlFor={inputId}
@@ -36,15 +38,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           id={inputId}
-          className={`
-            px-4 py-2
-            border border-neutral-300 rounded-md
-            focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent
-            disabled:bg-neutral-100 disabled:cursor-not-allowed
-            ${error ? 'border-error focus:ring-error' : ''}
-            ${fullWidth ? 'w-full' : ''}
-            ${className}
-          `}
+          className={cn(
+            'px-4 py-2',
+            'border border-neutral-300 rounded-md',
+            'focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-transparent',
+            'disabled:bg-neutral-100 disabled:cursor-not-allowed',
+            error && 'border-error focus:ring-error',
+            fullWidth && 'w-full',
+            className
+          )}
           {...props}
         />
 
