@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Output standalone para Cloudflare Pages
-  output: 'standalone',
+  // Output export para Cloudflare Pages (gera HTML estático)
+  output: 'export',
 
   // Configurações de imagem para Cloudflare
   images: {
@@ -17,25 +17,6 @@ const nextConfig: NextConfig = {
         hostname: '**.unsplash.com',
       },
     ],
-  },
-
-  // Configurações de domínio
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-        ],
-      },
-    ];
   },
 };
 
