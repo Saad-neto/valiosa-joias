@@ -12,6 +12,13 @@ import ProductCard from '@/components/ui/ProductCard';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
+// Generate static params for all products
+export async function generateStaticParams() {
+  return mockProducts.map((product) => ({
+    id: product.id,
+  }));
+}
+
 export default function ProductDetailPage() {
   const params = useParams();
   const { addItem } = useCart();
