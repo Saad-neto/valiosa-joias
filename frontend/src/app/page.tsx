@@ -60,22 +60,42 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section - Fixed Tiffany Style */}
+      {/* Hero Section - Valiosa Joias */}
       <section className="relative h-[500px] md:h-[600px] overflow-hidden bg-neutral-100">
-        {/* Placeholder for image/video - will be replaced */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-200 via-neutral-100 to-neutral-200"></div>
+        {/* Background Image - Responsivo */}
+        <div className="absolute inset-0">
+          {/* Mobile Image */}
+          <Image
+            src="/images/hero-mobile.jpg"
+            alt="Valiosa Joias - Coleção Premium"
+            fill
+            priority
+            className="object-cover md:hidden"
+          />
+          {/* Desktop/Tablet Image */}
+          <Image
+            src="/images/hero-desk.jpg"
+            alt="Valiosa Joias - Coleção Premium"
+            fill
+            priority
+            className="object-cover hidden md:block"
+          />
+        </div>
 
-        {/* Fixed Content Overlay */}
+        {/* Overlay escuro para melhor legibilidade */}
+        <div className="absolute inset-0 bg-black/20"></div>
+
+        {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-neutral-900 px-4 max-w-2xl">
-            <h1 className="font-serif text-4xl md:text-6xl font-normal mb-6 tracking-tight">
+          <div className="text-center text-white px-4 max-w-2xl">
+            <h1 className="font-playfair text-4xl md:text-6xl font-bold mb-6 tracking-tight drop-shadow-lg">
               Coleção Premium
             </h1>
-            <p className="text-base md:text-lg mb-10 font-light tracking-wide">
+            <p className="text-base md:text-lg mb-10 font-light tracking-wide drop-shadow-md">
               Joias exclusivas com design sofisticado
             </p>
             <Link href="/produtos">
-              <Button variant="outline" size="lg">
+              <Button variant="primary" size="lg">
                 Explorar Coleção
               </Button>
             </Link>
